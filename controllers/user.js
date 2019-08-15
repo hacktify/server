@@ -1,12 +1,12 @@
 const { compare } = require("../helpers/bcryptjs")
-const { sign } = require("../helpers/jwt")
+const { generateToken } = require("../helpers/jwt")
 const User = require("../models/user")
 
 module.exports = class UserController {
   static signUp(req, res, next) {
-    const { email, password } = req.body
+    const { username, email, password } = req.body
 
-    User.create({ email, password })
+    User.create({ username, email, password })
       .then( user => {
           res.status(201).json(user)
       })
@@ -24,7 +24,7 @@ module.exports = class UserController {
             payload.email = user.email
             payload.username = user.username
 
-            token = sign(payload);
+            token = generateToken(payload);
             res.status(200).json({ access_token: token, username: payload.username });
           } else {
             next({ code: 400, message: "Wrong email/password" })  
@@ -36,4 +36,5 @@ module.exports = class UserController {
       })
       .catch(next);
   }
+  
 };
