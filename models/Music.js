@@ -9,6 +9,9 @@ let MusicSchema = new Schema ({
   lyrics: {
     type: String,
   },
+  color:{
+    type: String,
+  },
   fileUrl:{
     type: String,
     required: [true, "image cannot be empty"]
