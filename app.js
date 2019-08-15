@@ -8,8 +8,8 @@ const logger = require('morgan')
 const mongoose = require('mongoose')
 
 const errorHandler = require('./middlewares/errorHandler')
-const routes = require('./routes')
-const port = process.env.PORT
+const routes = require('./routes/index')
+const port = process.env.PORT || 3000
 const dbName = 'database' // Change here
 
 const app = express()
@@ -34,7 +34,7 @@ app.use(express.json())
 app.use(logger('dev'))
 
 // Routes
-app.use('/api', routes)
+app.use('/', routes)
 
 // Error Handler
 app.use(errorHandler)
