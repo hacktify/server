@@ -4,8 +4,8 @@ class ArticleController {
   static create(req, res, next) {
     let { title, lyric } = req.body
     let fileUrl = req.file.cloudStoragePublicUrl
-    // let UserId = req.decode._id
-    Music.create({ title, lyric, fileUrl, })
+    let UserId = req.headers.decoded._id
+    Music.create({ title, lyric, fileUrl, UserId})
       .then((article) => {
         res.status(201).json(article)
       })
@@ -13,7 +13,19 @@ class ArticleController {
   }
 
   static getAllMusic(req, res, next){
+    console.log('from controller - music - getAllMusic')
     Music.find()
+      .then((musics)=>{
+        res.status(200).json(musics)
+      })
+      .catch(next)
+  }
+
+  static getOwnerMusic(req,res,next){
+    console.log('from controller - music - getOwnerMusic')
+    Music.find({
+      UserId : req.headers.decoded._id
+    })
       .then((musics)=>{
         res.status(200).json(musics)
       })
@@ -22,7 +34,7 @@ class ArticleController {
 
   static delete(req, res, next){
     Music.deleteOne({
-      _id: req.decode._id
+      _id: req.params.id
     })
       .then((music)=>{
         res.status(200).json(music)
