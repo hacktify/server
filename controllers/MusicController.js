@@ -15,7 +15,7 @@ class ArticleController {
 
   static getAllMusic(req, res, next){
     console.log('from controller - music - getAllMusic')
-    Music.find().populate('User')
+    Music.find().populate('UserId')
       .then((musics)=>{
         res.status(200).json(musics)
       })
@@ -26,7 +26,7 @@ class ArticleController {
     console.log('from controller - music - getOwnerMusic')
     Music.find({
       UserId : req.headers.decoded._id
-    }).populate('User')
+    }).populate('UserId')
       .then((musics)=>{
         res.status(200).json(musics)
       })
@@ -39,7 +39,7 @@ class ArticleController {
       title :{
         $regex: new RegExp(req.query.title,'i').populate('User')
       }
-    })
+    }).populate('UserId')
       .then((music)=>{
         res.status(200).json(music)
       })
