@@ -1,4 +1,5 @@
 module.exports = (err, req, res, next) =>{
+    console.log(err)
     switch (err.code) {
         case 400:
             res.status(400).json(err.message)

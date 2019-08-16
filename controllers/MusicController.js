@@ -3,6 +3,7 @@ const Music = require('../models/Music')
 class ArticleController {
   static create(req, res, next) {
     console.log('from controller - music - create')
+    console.log(req.body)
     let { title, lyric, color } = req.body
     let fileUrl = req.file.cloudStoragePublicUrl
     let UserId = req.headers.decoded._id
@@ -35,9 +36,10 @@ class ArticleController {
 
   static findOneMusic(req,res,next){
     console.log('from controller - music - findOne')
+    console.log(req.query)
     Music.find({
       title :{
-        $regex: new RegExp(req.query.title,'i').populate('User')
+        $regex: new RegExp(req.query.title,'i')
       }
     }).populate('UserId')
       .then((music)=>{
