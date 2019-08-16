@@ -14,8 +14,15 @@ const dbName = 'database' // Change here
 
 const app = express()
 
+
+// mongodb+srv://mongodb:<password>@cluster0-qtldw.gcp.mongodb.net/test?retryWrites=true&w=majority
 // Check mongoose connection
-mongoose.connect(`mongodb://localhost/${dbName}-${process.env.NODE_ENV}`, {
+// mongoose.connect(`mongodb://localhost/${dbName}-${process.env.NODE_ENV}`, {
+//     useNewUrlParser: true,
+//     useCreateIndex: true,
+//     useFindAndModify: false
+// });
+mongoose.connect(`mongodb+srv://mongodb:${process.env.MONGODB}@cluster0-qtldw.gcp.mongodb.net/${process.env.MONGODB_DB}?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false
